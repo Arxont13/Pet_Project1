@@ -1,31 +1,26 @@
 package ru.zerat.pet_project.MeteoBase.services;
 
-import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import ru.zerat.pet_project.MeteoBase.dto.MeteoDataDTO;
-import ru.zerat.pet_project.MeteoBase.models.MeteoData;
-import ru.zerat.pet_project.MeteoBase.repositories.MeteoDataRepository;
-
-import java.util.List;
-import java.util.Optional;
+import ru.zerat.pet_project.MeteoBase.models.Meteodata;
+import ru.zerat.pet_project.MeteoBase.repositories.MeteodataRepository;
 
 /**
  * @author Neil Alishev
  */
 @Service
 @Transactional(readOnly = true)
-public class MeteoDataService {
+public class MeteodataService {
 
-    private final MeteoDataRepository meteoDataRepository;
+    private final MeteodataRepository meteoDataRepository;
 
     @Autowired
-    public MeteoDataService(MeteoDataRepository meteoDataRepository) {
+    public MeteodataService(MeteodataRepository meteoDataRepository) {
         this.meteoDataRepository = meteoDataRepository;
     }
     @Transactional
-    public void save(MeteoData meteoData) {
+    public void save(Meteodata meteoData) {
         meteoDataRepository.save(meteoData);
     }
 

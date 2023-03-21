@@ -5,7 +5,6 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
-import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 
 /**
@@ -13,10 +12,10 @@ import javax.validation.constraints.NotNull;
  */
 @Entity
 @Data
-@Table(name = "MeteoData")
+@Table(name = "Meteodata")
 @NoArgsConstructor
 @AllArgsConstructor
-public class MeteoData {
+public class Meteodata {
     @Id
     @Column(name = "id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
