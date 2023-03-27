@@ -6,6 +6,9 @@ import org.springframework.transaction.annotation.Transactional;
 import ru.zerat.pet_project.MeteoBase.models.Meteodata;
 import ru.zerat.pet_project.MeteoBase.repositories.MeteodataRepository;
 
+import java.time.LocalDateTime;
+import java.util.List;
+
 /**
  * @author Neil Alishev
  */
@@ -14,19 +17,28 @@ import ru.zerat.pet_project.MeteoBase.repositories.MeteodataRepository;
 public class MeteodataService {
 
     private final MeteodataRepository meteoDataRepository;
+    private final SensorService sensorService;
 
     @Autowired
-    public MeteodataService(MeteodataRepository meteoDataRepository) {
+    public MeteodataService(MeteodataRepository meteoDataRepository,
+                            SensorService sensorService) {
         this.meteoDataRepository = meteoDataRepository;
+        this.sensorService = sensorService;
     }
+
+    public List<Meteodata> findAll(){
+        return meteoDataRepository.findAll();
+    }
+
     @Transactional
-    public void save(Meteodata meteoData) {
+    public void saveMeteodata(Meteodata meteoData) {
+        enrichMeteodata(meteoData);
         meteoDataRepository.save(meteoData);
     }
 
-//    private MeteoData convertToMeteoData(MeteoDataDTO meteoDataDTO){
-//        return modelMapper.map(meteoDataDTO, MeteoData.class);
-//    }
+    public void enrichMeteodata(Meteodata meteodata){
+        meteodata.setSensor(sensorService.findByName(meteodata.getSensor().getName()).get());
 
-
+        meteodata.setDate_of_measurement(LocalDateTime.now());
+    }
 }

@@ -6,6 +6,8 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
+import java.sql.Timestamp;
+import java.time.LocalDateTime;
 
 /**
  * @author Neil Alishev
@@ -28,5 +30,14 @@ public class Meteodata {
     @Column(name = "is_rainy")
     @NotNull
     private Boolean is_rainy;
+
+    @Column(name = "date_of_measurement")
+    @NotNull
+    private LocalDateTime date_of_measurement;
+
+    @NotNull
+    @ManyToOne
+    @JoinColumn(name = "sensor", referencedColumnName = "name")
+    private Sensor sensor;
 
 }
